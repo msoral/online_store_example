@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
+        <div class="information w-full lg:p-6">
+            <h1 class="text-2xl">{{ product.name }}</h1>
+
+            <p class="mt-1 text-gray-400">${{ product.price }}</p>
+
+            {% if product.description %}
+                <p class="mt-6 text-gray-700">
+                    {{ product.description }}
+                </p>
+            {% endif %}
+            <a href="{% url 'add_to_favorites' ide=product.id %}" class="mt-6 inline-block px-6 py-4 rounded-xl bg-teal-500 text-white hover:bg-teal-700">
+                {% if is_favorite %}Remove from Favorites {% else %} Add to Favorites {% endif %}
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

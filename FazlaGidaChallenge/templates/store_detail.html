@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="max-w-7xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
+        <div class="information w-full lg:p-6">
+            <h1 class="text-2xl">{{ store.name }}</h1>
+
+            <a href="#" class="mt-6 inline-block px-6 py-4 rounded-xl bg-teal-500 text-white hover:bg-teal-700">
+                Add to Favorites
+            </a>
+        </div>
+    </div>
+
+    <div class="store-detail max-w-7xl mx-auto lg:w-3/4 -mt-6 flex items-center flex-wrap">
+        {% for product in products %}
+            {% include 'components/product_list_item.html' %}
+        {% endfor %}
+    </div>
+
+{% endblock %}
