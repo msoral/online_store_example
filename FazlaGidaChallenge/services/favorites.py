@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Any
 
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
@@ -15,13 +15,12 @@ def toggle_product_favorite(ide, user: User) -> None:
         product.favorite.add(user)
 
 
-def add_store_to_favorites(ide, user: User) -> Store:
+def toggle_store_favorite(ide, user: User) -> None:
     store = get_object_or_404(Store, id=ide)
     if store.is_favorite(user.id):
         store.favorite.remove(user)
     else:
         store.favorite.add(user)
-    return store
 
 
 def get_favorites(
@@ -34,7 +33,17 @@ def get_favorites(
 
 def get_user_favorites(user_id: int) -> dict[str, dict[Favoritable, bool]]:
     products = Product.objects.all()
-    products = get_favorites(products, user_id)
+    products = _filter_dict(get_favorites(products, user_id))
+
     stores = Store.objects.all()
-    stores = get_favorites(stores, user_id)
+    stores = _filter_dict(get_favorites(stores, user_id))
+
     return {"products": products, "stores": stores}
+
+
+def _filter_dict(dictionary: dict[Any, bool]) -> dict[Any, bool]:
+    new_dict = dictionary.copy()
+    for key, value in dictionary.items():
+        if not value:
+            new_dict.pop(key)
+    return new_dict

@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 
 from FazlaGidaChallenge.models import Product, Store
-from FazlaGidaChallenge.services.favorites import get_favorites, add_store_to_favorites
+from FazlaGidaChallenge.services.favorites import get_favorites, toggle_store_favorite
 
 
 def store(request):
@@ -13,12 +14,18 @@ def store(request):
 def store_detail(request, slug):
     a_store: Store = get_object_or_404(Store, slug=slug)
     products = Product.objects.filter(store=a_store)
-    favorites = get_favorites(products, request.user.id)
+    products = get_favorites(products, request.user.id)
+    is_favorite = a_store.is_favorite(request.user.id)
 
-    context = {"store": a_store, "products": products, "favorites": favorites}
+    context = {
+        "store": a_store,
+        "products": products,
+        "is_favorite": is_favorite
+    }
+
     return render(request, "store_detail.html", context)
 
 
 def favorite_store(request, ide):
-    add_store_to_favorites(ide, request.user)
-    return redirect(store)
+    toggle_store_favorite(ide, request.user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

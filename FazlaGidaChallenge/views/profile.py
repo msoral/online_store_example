@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from ..models import Profile
-from ..services.favorites import get_user_favorites, toggle_product_favorite
+from ..services.favorites import get_user_favorites
 
 
 @login_required
@@ -17,10 +17,6 @@ def profile(request):
     }
     return render(request, "profile.html", context)
 
-@login_required
-def favorite_product(request, ide):
-    toggle_product_favorite(ide, request.user)
-    return redirect(profile)
 
 @login_required
 def edit_profile(request):

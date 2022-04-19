@@ -20,7 +20,9 @@
                 {% for product in products %}
                     {% include 'components/product_list_item.html' %}
                 {% endfor %}
-
+                {% if products|length == 0 %}
+                    <div class="py-6"></div>
+                {% endif %}
             </div>
         </div>
 
