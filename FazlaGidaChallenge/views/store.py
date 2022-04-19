@@ -6,6 +6,7 @@ from FazlaGidaChallenge.services.favorites import get_favorites, add_store_to_fa
 
 def store(request):
     stores = Store.objects.all()
+    stores = get_favorites(stores, request.user.id)
     return render(request, "store.html", {"stores": stores})
 
 

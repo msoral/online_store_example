@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.template.defaultfilters import register
@@ -26,13 +27,11 @@ def index(request):
             Q(name__icontains=query) | Q(description__icontains=query)
         )
 
-    favorites = get_favorites(products, request.user.id)
-
+    products = get_favorites(products, request.user.id)
     context = {
         "categories": categories,
         "products": products,
         "active_category": active_category,
-        "favorites": favorites,
         "is_superuser": request.user.is_superuser
     }
     return render(request, "index.html", context)
@@ -41,7 +40,7 @@ def index(request):
 @login_required
 def favorite_product(request, ide):
     toggle_product_favorite(ide, request.user)
-    return redirect(index)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @register.filter
