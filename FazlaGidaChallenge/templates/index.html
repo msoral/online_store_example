@@ -12,7 +12,7 @@
             </a>
         </div>
     </header>
-    <div class="max-w-7xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+    <div class="max-w-7xl mx-auto flex items-start py-4 px-4 xl:px-0">
         <div class="filters w-full lg:w-1/4">
             <h3 class="mb-3 text-xl uppercase">Search</h3>
 
@@ -44,11 +44,17 @@
             </ul>
 
         </div>
-        <div class="stores w-full lg:w-3/4 -mt-6 flex items-center flex-wrap">
+
+        <div class="stores w-1/2 lg:w-3/4 -mt-6 flex items-center flex-wrap">
             {% for product in products %}
                 {% include 'components/product_list_item.html' %}
             {% endfor %}
         </div>
+        {% if is_superuser %}
+            <div class="add-product-wrapper flex p-2">
+                {% include 'components/add_product.html' %}
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}

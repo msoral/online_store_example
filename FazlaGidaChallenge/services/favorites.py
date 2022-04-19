@@ -2,13 +2,12 @@ from typing import Iterable
 
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from django.db.models import Model
 
 from ..interfaces import Favoritable
 from ..models import Product, Store
 
 
-def add_product_to_favorites(ide, user: User) -> None:
+def toggle_product_favorite(ide, user: User) -> None:
     product = get_object_or_404(Product, id=ide)
     if product.is_favorite(user.id):
         product.favorite.remove(user)
@@ -31,14 +30,6 @@ def get_favorites(
     return dict(
         zip(model_list, map(lambda product: product.is_favorite(user_id), model_list))
     )
-
-
-def delete_product_favorite(id):
-    Product.favorite.remove(id)
-
-
-def delete_store_favorite(id):
-    Store.favorite.remove(id)
 
 
 def get_user_favorites(user_id: int) -> dict[str, dict[Favoritable, bool]]:

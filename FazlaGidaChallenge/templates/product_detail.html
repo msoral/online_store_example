@@ -12,10 +12,17 @@
                     {{ product.description }}
                 </p>
             {% endif %}
-            <a href="{% url 'add_to_favorites' ide=product.id %}" class="mt-6 inline-block px-6 py-4 rounded-xl bg-teal-500 text-white hover:bg-teal-700">
+            <a href="{% url 'add_favorite_product' ide=product.id %}" class="mt-6 inline-block px-6 py-4 rounded-xl bg-teal-500 text-white hover:bg-teal-700">
                 {% if is_favorite %}Remove from Favorites {% else %} Add to Favorites {% endif %}
             </a>
+            <a href="#" class="mt-6 inline-block px-6 py-4 rounded-xl bg-teal-500 text-white hover:bg-teal-700">
+                Update
+            </a>
+            <a href="#" class="mt-6 inline-block px-6 py-4 rounded-xl bg-teal-500 text-white hover:bg-teal-700">
+                Delete
+            </a>
         </div>
+
     </div>
 
 {% endblock %}

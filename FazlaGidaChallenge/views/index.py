@@ -6,7 +6,7 @@ from django.template.defaultfilters import register
 from FazlaGidaChallenge.interfaces import Favoritable
 from FazlaGidaChallenge.models import Category, Product
 from FazlaGidaChallenge.services.favorites import (
-    add_product_to_favorites,
+    toggle_product_favorite,
     get_favorites,
 )
 
@@ -33,13 +33,14 @@ def index(request):
         "products": products,
         "active_category": active_category,
         "favorites": favorites,
+        "is_superuser": request.user.is_superuser
     }
     return render(request, "index.html", context)
 
 
 @login_required
 def favorite_product(request, ide):
-    add_product_to_favorites(ide, request.user)
+    toggle_product_favorite(ide, request.user)
     return redirect(index)
 
 

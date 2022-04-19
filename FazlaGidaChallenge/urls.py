@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 from . import views
-
 urlpatterns = [
     path("", views.index, name="index"),
     path("signup/", views.signup, name="signup"),
@@ -15,14 +14,12 @@ urlpatterns = [
     ),
     path("stores/", views.store, name="store"),
     path("stores/<slug:slug>", views.store_detail, name="store_detail"),
+    path("products/add", views.add_product, name="add_product"),
     path("products/<slug:slug>", views.product_detail, name="product"),
     path("profile/", views.profile, name="profile"),
-    path(
-        "product/favorites/<int:ide>/",
-        views.favorite_product,
-        name="add_favorite_product",
-    ),
+    path("product/favorites/<int:ide>/", views.favorite_product, name="add_favorite_product",),
     path("store/favorites/<int:ide>", views.favorite_store, name="add_favorite_store"),
     path("profile/edit/", views.edit_profile, name="edit_profile"),
     path("admin/", admin.site.urls),
 ]
+
