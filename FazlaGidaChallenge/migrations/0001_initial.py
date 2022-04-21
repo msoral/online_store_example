@@ -16,51 +16,120 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=250)),
-                ('slug', models.SlugField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=250)),
+                ("slug", models.SlugField()),
             ],
             options={
-                'unique_together': {('name',)},
+                "unique_together": {("name",)},
             },
         ),
         migrations.CreateModel(
-            name='Store',
+            name="Store",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('slug', models.SlugField()),
-                ('favorite', models.ManyToManyField(blank=True, related_name='favorite_store', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("slug", models.SlugField()),
+                (
+                    "favorite",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="favorite_store",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ('name',),
+                "ordering": ("name",),
             },
         ),
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('role', models.CharField(max_length=50)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("role", models.CharField(max_length=50)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('slug', models.SlugField()),
-                ('description', models.CharField(blank=True, max_length=600)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('created_at', models.DateTimeField(default=datetime.datetime(2022, 4, 8, 1, 20, 47, 742375))),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='FazlaGidaChallenge.category')),
-                ('favorite', models.ManyToManyField(blank=True, related_name='favorite_product', to=settings.AUTH_USER_MODEL)),
-                ('store', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='FazlaGidaChallenge.store')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("slug", models.SlugField()),
+                ("description", models.CharField(blank=True, max_length=600)),
+                ("price", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=datetime.datetime(2022, 4, 8, 1, 20, 47, 742375)
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="FazlaGidaChallenge.category",
+                    ),
+                ),
+                (
+                    "favorite",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="favorite_product",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "store",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="FazlaGidaChallenge.store",
+                    ),
+                ),
             ],
             options={
-                'ordering': ('-created_at',),
+                "ordering": ("-created_at",),
             },
         ),
     ]

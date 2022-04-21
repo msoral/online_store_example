@@ -2,7 +2,6 @@ from FazlaGidaChallenge.models import Product
 
 
 class ProductService:
-
     @staticmethod
     def add(product: Product):
         product.save()

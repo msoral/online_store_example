@@ -13,7 +13,6 @@ def profile(request):
         "profile": a_profile,
         "products": favorites["products"],
         "stores": favorites["stores"],
-
     }
     return render(request, "profile.html", context)
 

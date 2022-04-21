@@ -32,7 +32,7 @@ def index(request):
         "categories": categories,
         "products": products,
         "active_category": active_category,
-        "is_superuser": request.user.is_superuser
+        "is_superuser": request.user.is_superuser,
     }
     return render(request, "index.html", context)
 
@@ -40,7 +40,7 @@ def index(request):
 @login_required
 def favorite_product(request, ide):
     toggle_product_favorite(ide, request.user)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 @register.filter

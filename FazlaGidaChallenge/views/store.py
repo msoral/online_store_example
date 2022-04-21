@@ -17,15 +17,11 @@ def store_detail(request, slug):
     products = get_favorites(products, request.user.id)
     is_favorite = a_store.is_favorite(request.user.id)
 
-    context = {
-        "store": a_store,
-        "products": products,
-        "is_favorite": is_favorite
-    }
+    context = {"store": a_store, "products": products, "is_favorite": is_favorite}
 
     return render(request, "store_detail.html", context)
 
 
 def favorite_store(request, ide):
     toggle_store_favorite(ide, request.user)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
